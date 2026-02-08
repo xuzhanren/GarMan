@@ -6721,11 +6721,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\DR\\Projects\\VSC\\GarManNetCoreEFRestAPIApp1\\GarMan\\GarMan.csproj",
+      "projectUniqueName": "c:\\DR\\Projects\\VSC\\GarMan\\GarMan\\GarMan.csproj",
       "projectName": "GarMan",
-      "projectPath": "C:\\DR\\Projects\\VSC\\GarManNetCoreEFRestAPIApp1\\GarMan\\GarMan.csproj",
+      "projectPath": "c:\\DR\\Projects\\VSC\\GarMan\\GarMan\\GarMan.csproj",
       "packagesPath": "C:\\Users\\renxu\\.nuget\\packages\\",
-      "outputPath": "C:\\DR\\Projects\\VSC\\GarManNetCoreEFRestAPIApp1\\GarMan\\obj\\",
+      "outputPath": "c:\\DR\\Projects\\VSC\\GarMan\\GarMan\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

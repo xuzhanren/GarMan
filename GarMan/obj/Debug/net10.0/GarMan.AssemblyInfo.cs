@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GarMan")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+993b66a4b64733dd5fa12d9150a85fa40da84c46")]
 [assembly: System.Reflection.AssemblyProductAttribute("GarMan")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GarMan")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "93wrUMuRKoU=",
+  "dgSpecHash": "HB/o5wCqwDE=",
   "success": true,
-  "projectFilePath": "C:\\DR\\Projects\\VSC\\GarManNetCoreEFRestAPIApp1\\GarMan\\GarMan.csproj",
+  "projectFilePath": "C:\\DR\\Projects\\VSC\\GarMan\\GarMan\\GarMan.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\renxu\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\renxu\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
