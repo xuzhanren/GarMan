@@ -1,0 +1,107 @@
+@model IEnumerable<GarMan.Models.Appliance>
+
+@{
+    ViewData["Title"] = "Appliance Collection Requests";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-5">@ViewData["Title"]</h1>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Request Collection
+        </a>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <div class="text-center py-5">
+                    <i class="bi bi-inbox display-1 text-muted"></i>
+                    <p class="lead mt-3">No appliance collection requests found.</p>
+                    <a asp-action="Create" class="btn btn-primary">Create your first request</a>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead >
+                            <tr >
+                                <th>@Html.DisplayNameFor(model => model.ApplianceType)</th>
+                                <th>@Html.DisplayNameFor(model => model.Brand)</th>
+                                <th>@Html.DisplayNameFor(model => model.Condition)</th>
+                                <th>@Html.DisplayNameFor(model => model.Status)</th>
+                                @if (!User.IsInRole("User"))
+                                {
+                                    <th>@Html.DisplayNameFor(model => model.RecyclingStatus)</th>
+                                    <th>@Html.DisplayNameFor(model => model.RecyclingComment)</th>
+                                    <th>@Html.DisplayNameFor(model => model.RecycledValue)</th>
+                                }
+                                <th>@Html.DisplayNameFor(model => model.EstimatedValue)</th>
+                                <th>@Html.DisplayNameFor(model => model.CollectionFee)</th>
+                                <th>@Html.DisplayNameFor(model => model.CollectionDate)</th>
+                                <th>@Html.DisplayNameFor(model => model.DateSubmitted)</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.ApplianceType)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Brand)</td>
+                                    <td>
+                                        <span class="badge bg-info">@Html.DisplayFor(modelItem => item.Condition)</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge @(item.Status == GarMan.Models.CollectionStatus.Collected ? "bg-success" : 
+                                                            item.Status == GarMan.Models.CollectionStatus.Pending ? "bg-warning" : 
+                                                            item.Status == GarMan.Models.CollectionStatus.Cancelled ? "bg-danger" : "bg-primary")">
+                                            @Html.DisplayFor(modelItem => item.Status)
+                                        </span>
+                                    </td>
+                                    @if (!User.IsInRole("User"))
+                                    {
+                                        <td>
+                                            <span class="badge @(item.RecyclingStatus == GarMan.Models.RecyclingStatus.Recycled ? "bg-success" : "bg-secondary")">
+                                                @Html.DisplayFor(modelItem => item.RecyclingStatus)
+                                            </span>
+                                        </td>
+                                        <td>@(string.IsNullOrEmpty(item.RecyclingComment) ? "-" : item.RecyclingComment)</td>
+                                        <td>@(item.RecycledValue.HasValue ? $"${item.RecycledValue:N2}" : "-")</td>
+                                    }
+                                    <td>@(item.EstimatedValue.HasValue ? $"${item.EstimatedValue:N2}" : "-")</td>
+                                    <td>$@item.CollectionFee.ToString("N2")</td>
+                                    <td>@(item.CollectionDate?.ToString("MM/dd/yyyy") ?? "Not scheduled")</td>
+                                    <td>@item.DateSubmitted.ToString("MM/dd/yyyy")</td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info" title="Details">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary" title="Edit">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Delete">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

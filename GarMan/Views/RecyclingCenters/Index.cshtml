@@ -1,0 +1,88 @@
+@model IEnumerable<GarMan.Models.RecyclingCenter>
+
+@{
+    ViewData["Title"] = "Recycling Centers";
+}
+
+<div class="container mt-4">
+    <h1 class="display-5 mb-4">@ViewData["Title"]</h1>
+    
+    <p class="lead">Find a recycling center near you for appliance disposal and recycling services.</p>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4 mt-2">
+        @foreach (var center in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">
+                            <i class="bi bi-building"></i> @center.CenterName
+                        </h5>
+                        <p class="card-text">
+                            <i class="bi bi-geo-alt-fill text-danger"></i>
+                            <strong>Address:</strong><br />
+                            @center.Address<br />
+                            @if (!string.IsNullOrEmpty(center.City))
+                            {
+                                @center.City
+                                @if (!string.IsNullOrEmpty(center.State))
+                                {
+                                    <text>, </text>@center.State
+                                }
+                                @if (!string.IsNullOrEmpty(center.ZipCode))
+                                {
+                                    <text> </text>@center.ZipCode
+                                }
+                            }
+                        </p>
+                        
+                        @if (!string.IsNullOrEmpty(center.PhoneNumber))
+                        {
+                            <p class="card-text">
+                                <i class="bi bi-telephone-fill text-success"></i>
+                                <strong>Phone:</strong> @center.PhoneNumber
+                            </p>
+                        }
+                        
+                        @if (!string.IsNullOrEmpty(center.Email))
+                        {
+                            <p class="card-text">
+                                <i class="bi bi-envelope-fill text-info"></i>
+                                <strong>Email:</strong> <a href="mailto:@center.Email">@center.Email</a>
+                            </p>
+                        }
+                        
+                        @if (!string.IsNullOrEmpty(center.OperatingHours))
+                        {
+                            <p class="card-text">
+                                <i class="bi bi-clock-fill text-warning"></i>
+                                <strong>Hours:</strong> @center.OperatingHours
+                            </p>
+                        }
+                        
+                        @if (!string.IsNullOrEmpty(center.AcceptedAppliances))
+                        {
+                            <p class="card-text">
+                                <i class="bi bi-recycle text-success"></i>
+                                <strong>Accepted Items:</strong><br />
+                                <small>@center.AcceptedAppliances</small>
+                            </p>
+                        }
+                    </div>
+                    <div class="card-footer">
+                        <a asp-action="Details" asp-route-id="@center.Id" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-info-circle"></i> More Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info mt-4">
+            <i class="bi bi-info-circle-fill"></i> No recycling centers found. Please check back later.
+        </div>
+    }
+</div>

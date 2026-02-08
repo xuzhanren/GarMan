@@ -1,0 +1,107 @@
+@model GarMan.Models.Appliance
+
+@{
+    ViewData["Title"] = "Appliance Details";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h2 class="mb-0">@ViewData["Title"]</h2>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ApplianceType)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.ApplianceType)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Brand)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Brand)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ModelNumber)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.ModelNumber)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.YearOfManufacture)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.YearOfManufacture)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Condition)</dt>
+                        <dd class="col-sm-9">
+                            <span class="badge bg-info">@Html.DisplayFor(model => model.Condition)</span>
+                        </dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Description)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Weight)</dt>
+                        <dd class="col-sm-9">@(Model.Weight.HasValue ? $"{Model.Weight:F2} kg" : "Not specified")</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.EstimatedValue)</dt>
+                        <dd class="col-sm-9">@(Model.EstimatedValue.HasValue ? $"${Model.EstimatedValue.Value:N2}" : "Not specified")</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CollectionDate)</dt>
+                        <dd class="col-sm-9">@(Model.CollectionDate?.ToString("MMMM dd, yyyy") ?? "Not scheduled")</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CollectionAddress)</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.CollectionAddress)</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CollectionFee)</dt>
+                        <dd class="col-sm-9">$@Model.CollectionFee.ToString("N2")</dd>
+
+                        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Status)</dt>
+                        <dd class="col-sm-9">
+                            <span
+                                class="badge @(Model.Status == GarMan.Models.CollectionStatus.Collected ? "bg-success" : 
+                                                                                                                                                                                                                                                                                                                Model.Status == GarMan.Models.CollectionStatus.Pending ? "bg-warning" :
+                                                                                                                                                                                                                                                                                                                Model.Status == GarMan.Models.CollectionStatus.Cancelled ? "bg-danger" : "bg-primary")">
+                                @Html.DisplayFor(model => model.Status)
+                            </span>
+                        </dd>
+
+                        @if (!User.IsInRole("User"))
+                        {
+                            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.RecyclingStatus)</dt>
+                            <dd class="col-sm-9">
+                                <span
+                                    class="badge @(Model.RecyclingStatus == GarMan.Models.RecyclingStatus.Recycled ? "bg-success" : "bg-secondary")">
+                                    @Html.DisplayFor(model => model.RecyclingStatus)
+                                </span>
+                            </dd>
+
+                            
+                                    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.RecycledValue)</dt>
+                                    <dd class="col-sm-9">@(Model.RecycledValue.HasValue ? $"${Model.RecycledValue.Value:N2}" : "Not         specified")</dd>
+                            
+                            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.RecyclingComment)</dt>
+                            <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.RecyclingComment) ? "Not specified" :
+                                                            Model.RecyclingComment)</dd>
+                        }
+
+                            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.DateSubmitted)</dt>
+                            <dd class="col-sm-9">@Model.DateSubmitted.ToString("MMMM dd, yyyy hh:mm tt")</dd>
+
+                            @if (Model.LastUpdated.HasValue)
+                            {
+                                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.LastUpdated)</dt>
+                                <dd class="col-sm-9">@Model.LastUpdated.Value.ToString("MMMM dd, yyyy hh:mm tt")</dd>
+                            }
+
+                            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CustomerName)</dt>
+                            <dd class="col-sm-9">@Html.DisplayFor(model => model.CustomerName)</dd>
+
+                            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CustomerPhone)</dt>
+                            <dd class="col-sm-9">@Html.DisplayFor(model => model.CustomerPhone)</dd>
+
+                            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CustomerEmail)</dt>
+                            <dd class="col-sm-9">@Html.DisplayFor(model => model.CustomerEmail)</dd>
+                        </dl>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+                            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

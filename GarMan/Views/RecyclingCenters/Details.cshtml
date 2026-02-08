@@ -1,0 +1,83 @@
+@model GarMan.Models.RecyclingCenter
+
+@{
+    ViewData["Title"] = "Recycling Center Details";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h2 class="mb-0"><i class="bi bi-building"></i> @Model.CenterName</h2>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3"><i class="bi bi-geo-alt-fill text-danger"></i> Address</dt>
+                        <dd class="col-sm-9">
+                            @Model.Address<br />
+                            @if (!string.IsNullOrEmpty(Model.City))
+                            {
+                                @Model.City
+                                @if (!string.IsNullOrEmpty(Model.State))
+                                {
+                                    <text>, </text>@Model.State
+                                }
+                                @if (!string.IsNullOrEmpty(Model.ZipCode))
+                                {
+                                    <text> </text>@Model.ZipCode
+                                }
+                            }
+                        </dd>
+
+                        @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+                        {
+                            <dt class="col-sm-3"><i class="bi bi-telephone-fill text-success"></i> Phone</dt>
+                            <dd class="col-sm-9">
+                                <a href="tel:@Model.PhoneNumber">@Model.PhoneNumber</a>
+                            </dd>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.Email))
+                        {
+                            <dt class="col-sm-3"><i class="bi bi-envelope-fill text-info"></i> Email</dt>
+                            <dd class="col-sm-9">
+                                <a href="mailto:@Model.Email">@Model.Email</a>
+                            </dd>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.OperatingHours))
+                        {
+                            <dt class="col-sm-3"><i class="bi bi-clock-fill text-warning"></i> Operating Hours</dt>
+                            <dd class="col-sm-9">@Model.OperatingHours</dd>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.AcceptedAppliances))
+                        {
+                            <dt class="col-sm-3"><i class="bi bi-recycle text-success"></i> Accepted Appliances</dt>
+                            <dd class="col-sm-9">@Model.AcceptedAppliances</dd>
+                        }
+
+                        <dt class="col-sm-3"><i class="bi bi-check-circle-fill text-success"></i> Status</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.IsActive)
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Inactive</span>
+                            }
+                        </dd>
+                    </dl>
+
+                    <div class="mt-4">
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

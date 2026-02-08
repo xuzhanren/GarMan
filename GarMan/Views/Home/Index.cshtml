@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- Theme Toggle Button -->
+<button id="themeToggleBtn" class="btn btn-sm btn-outline-primary" onclick="toggleTheme()" title="Toggle theme">
+    <i class="bi bi-sun-fill"></i>
+    <span class="theme-text d-none d-md-inline ms-2">Light Mode</span>
+</button>
+
+<div class="text-center mb-5">
+    <h1 class="display-3 fw-bold text-success">
+        <i class="bi bi-recycle"></i> Garbage Appliance Management
+    </h1>
+    <p class="lead text-muted">Responsible Collection and Recycling of Household Appliances</p>
+</div>
+
+<div class="container">
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-success">
+                <div class="card-body text-center">
+                    <i class="bi bi-calendar-check display-1 text-success mb-3"></i>
+                    <h3 class="card-title">Schedule Collection</h3>
+                    <p class="card-text">Request pickup for your old appliances. We'll come to your location and handle
+                        everything.</p>
+                        <a asp-controller="Appliances" asp-action="Create" class="btn btn-success">Request Collection</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-info">
+                    <div class="card-body text-center">
+                        <i class="bi bi-building display-1 text-info mb-3"></i>
+                        <h3 class="card-title">Find Centers</h3>
+                        <p class="card-text">Locate recycling centers near you. Drop off your appliances at your
+                            convenience.</p>
+                            <a asp-controller="RecyclingCenters" asp-action="Index" class="btn btn-info">View Centers</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-primary">
+                        <div class="card-body text-center">
+                            <i class="bi bi-list-check display-1 text-primary mb-3"></i>
+                            <h3 class="card-title">Track Requests</h3>
+                            <p class="card-text">View and manage your collection requests. Track the status of your appliances.
+                            </p>
+                            <a asp-controller="Appliances" asp-action="Index" class="btn btn-primary">My Requests</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row rounded p-5 mb-4">
+                <div class="col-lg-6">
+                    <h2 class="text-success mb-4">
+                        <i class="bi bi-leaf"></i> Why Recycle Appliances?
+                    </h2>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <strong>Environmental Protection:</strong> Prevent harmful materials from entering landfills
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <strong>Resource Recovery:</strong> Reclaim valuable metals and materials for reuse
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <strong>Energy Savings:</strong> Reduce energy needed for manufacturing new products
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <strong>Community Service:</strong> Support local recycling initiatives
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="text-primary mb-4">
+                        <i class="bi bi-gear"></i> Accepted Appliances
+                    </h2>
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="bi bi-arrow-right-circle text-primary me-2"></i>Refrigerators</li>
+                                <li class="mb-2"><i class="bi bi-arrow-right-circle text-primary me-2"></i>Washing Machines</li>
+                                <li class="mb-2"><i class="bi bi-arrow-right-circle text-primary me-2"></i>Dryers</li>
+                                <li class="mb-2"><i class="bi bi-arrow-right-circle text-primary me-2"></i>Dishwashers</li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="bi bi-arrow-right-circle text-primary me-2"></i>Ovens & Stoves</li>
+                                <li class="mb-2"><i class="bi bi-arrow-right-circle text-primary me-2"></i>Microwaves</li>
+                                <li class="mb-2"><i class="bi bi-arrow-right-circle text-primary me-2"></i>Water Heaters</li>
+                                <li class="mb-2"><i class="bi bi-arrow-right-circle text-primary me-2"></i>Air Conditioners</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
