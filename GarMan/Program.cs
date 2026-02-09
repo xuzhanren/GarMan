@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using GarMan.Data;
+using GarMan;
 
 var builder = WebApplication.CreateBuilder(args);
 

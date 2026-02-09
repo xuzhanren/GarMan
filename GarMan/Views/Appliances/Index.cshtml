@@ -34,8 +34,8 @@
             {
                 <div class="table-responsive">
                     <table class="table table-hover">
-                        <thead >
-                            <tr >
+                        <thead>
+                            <tr>
                                 <th>@Html.DisplayNameFor(model => model.ApplianceType)</th>
                                 <th>@Html.DisplayNameFor(model => model.Brand)</th>
                                 <th>@Html.DisplayNameFor(model => model.Condition)</th>
@@ -63,16 +63,18 @@
                                         <span class="badge bg-info">@Html.DisplayFor(modelItem => item.Condition)</span>
                                     </td>
                                     <td>
-                                        <span class="badge @(item.Status == GarMan.Models.CollectionStatus.Collected ? "bg-success" : 
-                                                            item.Status == GarMan.Models.CollectionStatus.Pending ? "bg-warning" : 
-                                                            item.Status == GarMan.Models.CollectionStatus.Cancelled ? "bg-danger" : "bg-primary")">
+                                        <span
+                                            class="badge @(item.Status == GarMan.Models.CollectionStatus.Collected ? "bg-success" : 
+                                                                                                                                            item.Status == GarMan.Models.CollectionStatus.Pending ? "bg-warning" :
+                                                                                                                                            item.Status == GarMan.Models.CollectionStatus.Cancelled ? "bg-danger" : "bg-primary")">
                                             @Html.DisplayFor(modelItem => item.Status)
                                         </span>
                                     </td>
                                     @if (!User.IsInRole("User"))
                                     {
                                         <td>
-                                            <span class="badge @(item.RecyclingStatus == GarMan.Models.RecyclingStatus.Recycled ? "bg-success" : "bg-secondary")">
+                                            <span
+                                                class="badge @(item.RecyclingStatus == GarMan.Models.RecyclingStatus.Recycled ? "bg-success" : "bg-secondary")">
                                                 @Html.DisplayFor(modelItem => item.RecyclingStatus)
                                             </span>
                                         </td>
@@ -85,13 +87,16 @@
                                     <td>@item.DateSubmitted.ToString("MM/dd/yyyy")</td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
-                                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info" title="Details">
+                                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info"
+                                                   title="Details">
                                                 <i class="bi bi-eye"></i>
                                             </a>
-                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary" title="Edit">
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary"
+                                                   title="Edit">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
-                                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Delete">
+                                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger"
+                                                   title="Delete">
                                                 <i class="bi bi-trash"></i>
                                             </a>
                                         </div>
@@ -101,6 +106,98 @@
                         </tbody>
                     </table>
                 </div>
+
+                @if (ViewBag.TotalPages > 1)
+                {
+                    <nav aria-label="Appliances pagination" class="mt-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-muted">
+                                Showing @((ViewBag.CurrentPage - 1) * ViewBag.PageSize + 1) to @(Math.Min(ViewBag.CurrentPage *
+                                                        ViewBag.PageSize, ViewBag.TotalItems)) of @ViewBag.TotalItems appliances
+                            </small>
+                        </div>
+                        <ul class="pagination justify-content-center">
+                            @if (ViewBag.CurrentPage > 1)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" asp-action="Index" asp-route-page="1" aria-label="First">
+                                        <span aria-hidden="true">&laquo;&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)"
+                                           aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="page-item disabled">
+                                    <span class="page-link">&laquo;&laquo;</span>
+                                </li>
+                                <li class="page-item disabled">
+                                    <span class="page-link">&laquo;</span>
+                                </li>
+                            }
+
+                            @{
+                                var startPage = Math.Max(1, ViewBag.CurrentPage - 2);
+                                var endPage = Math.Min(ViewBag.TotalPages, ViewBag.CurrentPage + 2);
+
+                                if (startPage > 1)
+                                {
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                }
+
+                                for (int i = startPage; i <= endPage; i++)
+                                {
+                                    if (i == ViewBag.CurrentPage)
+                                    {
+                                        <li class="page-item active" aria-current="page">
+                                            <span class="page-link">@i</span>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                                        </li>
+                                    }
+                                }
+
+                                if (endPage < ViewBag.TotalPages)
+                                {
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                }
+                            }
+
+                            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)"
+                                           aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" asp-action="Index" asp-route-page="@ViewBag.TotalPages" aria-label="Last">
+                                        <span aria-hidden="true">&raquo;&raquo;</span>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="page-item disabled">
+                                    <span class="page-link">&raquo;</span>
+                                </li>
+                                <li class="page-item disabled">
+                                    <span class="page-link">&raquo;&raquo;</span>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                }
             }
         </div>
     </div>

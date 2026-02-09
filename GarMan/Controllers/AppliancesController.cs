@@ -11,15 +11,21 @@ namespace GarMan.Controllers;
 public class AppliancesController : Controller
 {
     private readonly ApplicationDbContext _context;
+    private readonly IConfiguration _configuration;
 
-    public AppliancesController(ApplicationDbContext context)
+    public AppliancesController(ApplicationDbContext context, IConfiguration configuration)
     {
         _context = context;
+        _configuration = configuration;
     }
 
     // GET: Appliances
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int? page)
     {
+        // Get page size from configuration
+        var pageSize = _configuration.GetValue<int>("Paging:AppliancesPageSize", 10);
+        var pageNumber = page ?? 1;
+
         var query = _context.Appliances.AsQueryable();
 
         // Users with "User" role can only see their own appliances
@@ -29,9 +35,23 @@ public class AppliancesController : Controller
             query = query.Where(a => a.UserId == userId);
         }
 
+        // Get total count for pagination
+        var totalItems = await query.CountAsync();
+        var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+        // Get paged data
         var appliances = await query
             .OrderByDescending(a => a.DateSubmitted)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync();
+
+        // Pass paging info to view
+        ViewBag.CurrentPage = pageNumber;
+        ViewBag.TotalPages = totalPages;
+        ViewBag.PageSize = pageSize;
+        ViewBag.TotalItems = totalItems;
+
         return View(appliances);
     }
 
